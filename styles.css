@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width:100vw;
+  height:100vh;
+  font-family: Arial;
+  background-image: url("./assets/background.png");
+  background-repeat: repeat; 
+  
+}
+
+.Viewframe{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  width:100%;
+  height:100%;
+}
+
+
+.Modal{
+  width:80%;
+  height:70%;
+  background: white;
+  padding:40px;
+  border-radius: 50px;
+}
+
+.Button {
+  display: inline-block;
+  height: 36px;
+  margin-left: 8px;
+  min-width: 88px;
+}

@@ -2,12 +2,12 @@
 
 ## Session Date
 
-1 - *Firestore*
+1 - *Firestore and Hosting*
 
 - Instructor: Shoham
 - Live on Twitch
 
-2 - *Authentication and Routing*
+2 - *Authentication and Cloud Functions*
 
 - Instructor:
 - Live on Twitch

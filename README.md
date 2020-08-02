@@ -5,7 +5,7 @@
 0 - _Setup_
 
 - Self paced
-- Ideally complete before Lesson 1
+- Ideally should be completed before Lesson 1
 
 1 - _Firestore and Hosting_
 
@@ -26,7 +26,7 @@
 
 - [Session 0: Setting up Firebase](./0-Setup.md)
 - [Session 1: Firestore](./1-Firestore.md)
-- [Session 2: Authentication and Routing](./2-AuthenticationAndRouting.md)
+- [Session 2: Authentication and Routing](./2_AuthenticationAndCloudFunctions.md)
 
 Supplementary:
 

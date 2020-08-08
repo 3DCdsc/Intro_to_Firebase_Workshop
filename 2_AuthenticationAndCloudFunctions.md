@@ -1,7 +1,20 @@
 # Lesson 2 - Authentication and Cloud Functions
 
-1. [Recap on Firebase](#recap-on-firebase)
-2. [Initialise Firebase App](#initialise-firebase-app)
+## Overview
+
+- [Recap on Firebase](#recap-on-firebase)
+- [Initialise Firebase App](#initialise-firebase-app)
+- [Authentication](#authentication)
+  - [Create Login Page](#create-login-page)
+  - [Adding Authentication to your Firebase Project](#adding-authentication-to-your-firebase-project)
+  - [FirebaseUI Auth](#firebaseui-auth)
+  - [Set Up FirebaseUI](#set-up-firebaseui)
+  - [Sign Out](#sign-out)
+  - [Profile Information](#profile-information)
+- [Cloud Functions](#cloud-functions)
+  - [Set-up](#set-up)
+  - [Set](#set)
+  - [Deploying Functions](#deploying-functions)
 
 ## Recap on Firebase
 
@@ -307,7 +320,35 @@ To add profile information, we can use the `user` object that we get once the au
     });
     ```
 
-2. 
+3. To get the user's name, we can use `.displayName` property of the user object. Let's first save the user's name with a variable `name`.
+
+    ``` javascript
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        login_section.style.display = 'none';
+        main_section.style.display = 'block';
+
+        let name = user.displayName;
+    ```
+
+    - Pro-tip: There are actually many other properties of the user object which we can use, such as the following:
+
+        ``` javascript
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;
+        ```
+
+        - More information on user profile's properties in the documentation [here](https://firebase.google.com/docs/auth/web/manage-users#get_a_users_profile).
+
+4. Let's change the `profile` block we made earlier to display a "Welcome, [name]" message. Below the name variable, type the following:
+
+    ``` javascript
+    let profileDiv = document.getElementById('profile');
+    profileDiv.innerHTML = "<p>Welcome, "+ name + "</p>"
+    ```
 
 ## Cloud Functions
 

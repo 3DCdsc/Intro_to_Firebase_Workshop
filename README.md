@@ -14,7 +14,7 @@
 
 2 - _Authentication and Cloud Functions_
 
-- Instructor:
+- Instructor: Lowen
 - Live on Twitch
 
 ## Platform
@@ -25,8 +25,8 @@
 ## Lesson Material
 
 - [Session 0: Setting up Firebase](./0-Setup.md)
-- [Session 1: Firestore](./1-Firestore.md)
-- [Session 2: Authentication and Routing](./2_AuthenticationAndCloudFunctions.md)
+- [Session 1: Firestore and Hosting](./1-Firestore.md)
+- [Session 2: Authentication and Cloud Functions](./2_AuthenticationAndCloudFunctions.md)
 
 Supplementary:
 
@@ -34,8 +34,9 @@ Supplementary:
 
 ## Contributors
 
-- [Huiqing](https://github.com/LinHuiqing)
+- Lowen
 - [Shoham](https://github.com/shohamc1)
+- [Huiqing](https://github.com/LinHuiqing)
 
 ## TAs
 

@@ -2,6 +2,7 @@
 
 ## Overview
 
+- [Overview](#overview)
 - [Recap on Firebase](#recap-on-firebase)
 - [Initialise Firebase App](#initialise-firebase-app)
 - [Authentication](#authentication)
@@ -12,8 +13,9 @@
   - [Sign Out](#sign-out)
   - [Profile Information](#profile-information)
 - [Cloud Functions](#cloud-functions)
-  - [Set-up](#set-up)
-  - [Set](#set)
+  - [Set-up Billing Account](#set-up-billing-account)
+  - [Set-up Project](#set-up-project)
+  - [Writing Cloud Functions](#writing-cloud-functions)
   - [Deploying Functions](#deploying-functions)
 
 ## Recap on Firebase
@@ -352,9 +354,23 @@ To add profile information, we can use the `user` object that we get once the au
 
 ## Cloud Functions
 
-### Set-up
+Do note that to use Cloud Functions, Google requires the project to add a billing account and use the Blaze Plan instead of the Spark Plan (free). There are still free limits each month, so for a small demo or project like the one we are doing, we will not need to pay anything.
 
-1. Navigate to `Functions` on the right panel of Firebase.
+- Free tier limits are specified [here](https://cloud.google.com/functions/pricing#free_tier).
+- Difference between Firebase's Spark Plan and Blaze Plan is stated [here](https://firebase.google.com/pricing).
+
+### Set-up Billing Account
+
+1. On the side bar in Firebase, click the "Upgrade" button beside "Spark". You should see this: ![Image of Billing Prompt 1](images/firebase_billing_1.png?raw=true "Billing Prompt 1")
+2. Click "Select plan" under Blaze.
+3. Next, you should see this: ![Image of Billing Prompt 2](images/firebase_billing_2.png?raw=true "Billing Prompt 2")
+4. Click "Continue" and follow through the procedure to add your billing information.
+5. After adding your billing account, you can add Budget Alerts as well so that Google will warn you when you have spent 50%, 90% and 100% of your budget.
+6. After this, we can use Cloud Functions :D
+
+### Set-up Project
+
+1. Navigate to `Functions` on the side bar in Firebase.
 2. Click `Get started` and `continue` twice.
 3. Install Firebase tools. Open your terminal and navigate to the project folder. Enter the following line into it.
 
@@ -384,7 +400,9 @@ To add profile information, we can use the `user` object that we get once the au
     5. y
     6. y
 
-### Set
+### Writing Cloud Functions
+
+TODO
 
 ### Deploying Functions
 

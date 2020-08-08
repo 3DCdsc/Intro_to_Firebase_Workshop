@@ -34,7 +34,7 @@ Supplementary:
 
 ## Contributors
 
-- Lowen
+- [Lowen](https://github.com/lowenhere)
 - [Shoham](https://github.com/shohamc1)
 - [Huiqing](https://github.com/LinHuiqing)
 

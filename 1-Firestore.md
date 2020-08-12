@@ -1,4 +1,4 @@
-# Lesson 1 - Firestore and Firebase Hosting
+# Lesson 1.1 Firestore
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@
 - Create an empty folder.
 - Run `npm init`. Fill up the details as you want. Fields can be left blank. _(this is inconsequential for our scope)_
 - Install firebase admin by running `npm install firebase-admin`.
-- Create an empty `.js` file.
+- Create an empty `index.js` file.
 
 ## Service Accounts
 
@@ -26,7 +26,7 @@ Generally using of service accounts is best practice as:
 ### Getting your service account
 
 1. Go to your Firebase project.
-2. Click on ![Image](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABNElEQVRIieXUq04DQRgF4A8koU24SDxJUZjiuASBhTRcXGsx8BZ9BRxYeAouLwC4OhIICQbXVraIXRIynVkWKAZO8ov99/zn7OzMHP4LjjEM6qjM4GRJg+WSvW9hCQ9GV/CA2mfDE5HnK7ziHGs4jPDeMcQJrnGAeaxjkDJsRb70q9VKiU/jeQwGL6jGDNoFQ49ooJLXNjoF/HbMYAe9hPhshD+Tvwv5vVwrijr6wUAjRcZuwO3nGoXoBkOVAm414HZDQtmLlkLq+CYN6pHeZsH8VkQv+Yu2xTe5I9vQEHN4ivB7udbIClYwFRFaxL1sQ6t57eEOCxH+VK41gl+/aNAcg0Hzo2As7C5lYXeBVVnYpU7bQBZ2N9iXhd2GgrCLoeYHcV0WZxGD0zKDZS/abcneH8QbVjmoqgPsNrYAAAAASUVORK5CYII=) beside `Project Overview`.
+2. Click ont he settings icon beside `Project Overview`.
 3. Click on `Project settings`.
 4. Click on `Service accounts`.
 5. Click on `Firebase Admin SDK` and click on `Generate new private key`.
@@ -46,23 +46,21 @@ Right now your directory stucture should be something like this:
 +-- package-lock.json
 ```
 
-Open `index.js`. Firstly, we will need to authenticate ourselves with the database. For this we will need a few functions from `firebase-admin`.
+Open `index.js`. Firstly, we will need to authenticate ourselves with the database. For this we will need to import `firebase-admin`.
 
 ---
 
 ```javascript
-import { initializeApp, credential, firestore } from "firebase-admin";
+const serviceAccount = require("./firebase.json");
 ```
-
-We will use `initializeApp` and `credential` for authentication, whereas `firestore` is used to interface with the database once we are authenticated.
 
 ---
 
 ```javascript
 import serviceAccount from "./firebase.json";
 
-initializeApp({
-  credential: credential.cert(serviceAccount),
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
 });
 ```
 
@@ -71,12 +69,12 @@ We load the service account we downloaded earlier into memory and use it to init
 ---
 
 ```javascript
-const db = firestore();
+const db = admin.firestore();
 ```
 
 Finally to connect to the database we use this command.
 
-## Adding in some data
+## Creating some data
 
 Now that we are connected with our database, its looking a bit empty. Let's change that by adding in some basic data.
 
@@ -119,3 +117,161 @@ Let's break that down a bit.
    `addObjects(db)`: we are creating a function named `addObjects` with one parameter `db`. Here `db` will be the database object we created above. We will need it to push data to the database.
 
 2. For automatic IDing
+   For this we just specify the data and Firestore will generate an ID for us. The data we want to add is passed under `add()`
+
+3. For manual IDing
+   We pass use an additional function `doc()` to specify an ID.
+
+You might want to choose between automatic or manual IDing depending on your application.
+
+---
+
+Now if you go to the Firestore dashboard you should see two entries (one with the manual ID you specified and one automatic).
+
+![Image of Create Success](images/firestore/create_success.png?raw=true "Firestore Create Success")
+
+## Retrieving Data
+
+After adding in some data to your database, you would want to request the data to display it for the user or use for further processing on the client end.
+
+We are going to cover two types of querying:
+
+- Getting all documents from a collection
+- Getting documents matching parameters from a collection
+
+### Getting all documents from a collection
+
+Create a function with the following code:
+
+```javascript
+async function getObjects(db) {
+  const snapshot = await db.collection("test").get();
+
+  snapshot.forEach((doc) => {
+    console.log(doc.id, "=>", doc.data());
+  });
+}
+```
+
+The purpose for `async` and `db` remains the same.
+
+`db.collection()` specifies the collection name to get data from. We simply add the `get()` to get all the documents within the specified collection.
+
+The lines that follow are to display the retrieved data on the console.
+
+### Getting documents matching parameters from a collection
+
+Create a function with the following code:
+
+```javascript
+async function queryObjects(db) {
+  const test_collection = db.collection("test");
+  const snapshot = await test_collection
+    .where("name", "==", "Rick Astley")
+    .get();
+
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return;
+  }
+
+  snapshot.forEach((doc) => {
+    console.log(doc.id, "=>", doc.data());
+  });
+}
+```
+
+We first create a logical parameter which the database will use to search through the specified collection. Documents that satisfy the logical condition are returned and stored in the `snapshot` variable.
+
+The logical operators supported are:
+
+- `<`
+- `<=`
+- `==`
+- `>`
+- `>=`
+- `array-contains`
+- `in`
+- `or`
+- `array-contains-any`
+
+You can use multiple `where()` functions, however do keep in mind Firestore allows range filtering (ie the use of `<`, `<=`, `>`, `>=`) on only one of the `where()` functions.
+
+You can also specify how the documents will be ordered and can limit the number of responses.
+
+For limit -> add `limit(<int>)` before `get()` and pass in the number of documents you want the database to return.
+
+For order -> add `orderBy(field, mode)` before `get()`. `field` is used to specify which field you want to order results by and mode is to specify between ascending (`asc`, this is also the default if you omit filter mode) and descending (`desc`).
+
+For more stuff we are not covering (like pagination, subcollections) you can reference the docs [here](https://firebase.google.com/docs/firestore/query-data/query-cursors).
+
+## Updating data
+
+Create a function with the following code:
+
+```javascript
+async function deleteDocument(db) {
+    data = {
+        name: "GG",
+        coolness_factor: 100,
+    };
+    const test_collection = db.collection("test");
+    const snapshot = await test_collection.doc(<document_id>).update(data)
+}
+```
+
+First we define a dictionary which will contain all the new fields we want to update the document with. After that we select the document and use the `update(<dict>)` function to update the document with the data specified in the parameters.
+
+## Deleting data
+
+We will be covering two types of deletion:
+
+- Deleting an entire document
+- Deleting a certain field in a document
+
+### Deleting an entire document
+
+Create a function with the following code:
+
+```javascript
+async function deleteDocument(db) {
+	const test_collection = db.collection("test");
+	const snapshot = await test_collection.doc(<document_id>).delete()
+
+	console.log(snapshot.id, "=>", snapshot.data());
+}
+```
+
+Specify the document you want to delete (identified by the specified ID) using `doc()`, and pass `delete()` to tell the database to delete that document.
+
+### Deleting a certain field
+
+Create a function with the following code:
+
+```javascript
+async function deleteDocument(db) {
+    const FieldValue = admin.firestore.FieldValue;
+    const test_collection = db.collection("test");
+    const doc = await test_collection.doc(<document_id>)
+
+    const res = await cityRef.update({
+          name: FieldValue.delete()
+    });
+}
+```
+
+First we select the document that we want to delete the field from. Next, a `FieldValue` is declared which we later use to specify the key that we want to delete along with the `delete()` function.
+
+# Lesson 1.2 - Firebase Hosting
+
+Firebase Hosting a easy to use (and free) service to host your static sites on the cloud. This gives you a URL that you can share with your friends. Some other alternatives are [Netlify](https://www.netlify.com/) and [Heroku](https://heroku.com/).
+
+## How to host your website
+
+1. Get the files from the [previous workshop](https://github.com/3DCdsc/Intro_to_JS_Workshop).
+2. Install the Firebase CLI using `npm i -g firebase-tools`.
+3. Login to Firebase on the CLI with `firebase login`
+4. Go to the project directory and setup a `public` folder with the completed `index.html` and all related assets inside.
+5. Go to the folder containing the `public` folder and run `firebase init`. Choose hosting and the project that you created. Choose yes for single page site and make sure that the folder it is pointing to is also `public`.
+6. Use `firebase serve` to get a preview of what the deployed site would look like. (you can also use this to debug any issues)
+7. If there are no issues then you can use `firebase deploy` and after the processes are done it will give you a URL at which you can find your site.

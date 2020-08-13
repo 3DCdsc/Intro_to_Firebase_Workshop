@@ -13,10 +13,6 @@ For this workshop series you will need
 - access to a termnial (use [Microsoft Terminal](https://aka.ms/terminal) if you're on Windows 😉)
 - a code editor
 
-## What is Firebase
-
-TODO
-
 ## Creating a project
 
 1. Go to [Firebase](https://firebase.google.com/).

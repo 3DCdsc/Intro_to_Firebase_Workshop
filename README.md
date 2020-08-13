@@ -56,4 +56,4 @@ Should you have any questions during or after the session please feel free to re
    - The ZIP way:
      - At the top-right corner of this Git Repository, click on the "Code" button.
      - Click "Download ZIP" and you should be able to unzip and use the files!
-   - Using `git` - refer to our tutorial covered in an earlier workshop [here](https://github.com/3DCdsc/Intro_to_Git_Workshop/blob/master/2_Git_With_Github.md#43-cloning-the-repository). Run `git clone https://github.com/3DCdsc/Intro_to_Firebase_Workshop.git`
+   - Using `git` - refer to our tutorial covered in an earlier workshop [here](https://github.com/3DCdsc/Intro_to_Git_Workshop/blob/master/2_Git_With_Github.md#43-cloning-the-repository). Run `git clone https://github.com/3DCdsc/Intro_to_Firebase_Workshop.git`.

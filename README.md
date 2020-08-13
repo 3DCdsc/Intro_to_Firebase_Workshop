@@ -20,7 +20,7 @@
 ## Platform
 
 - Twitch - [Live Stream Link](https://www.twitch.tv/3dcdsc)
-- Pigeonhole - [Live QA Link]()
+- Pigeonhole - [Live QA Link](https://pigeonhole.at/R2VHY9)
 
 ## Lesson Material
 

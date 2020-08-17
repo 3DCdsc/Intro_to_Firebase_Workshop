@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Another Todo App | Main</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.18.0/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.18.0/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.18.0/firebase-firestore.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <!-- our own script  -->
+  <script defer src="/js/main.js"></script>
+
+  <!-- our own styles  -->
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">
+      <h1>Another todo app (wow!)</h1>
+    </div>
+    <div id="todo-items">
+      <div class="subtitle">
+        <h2>Todo Items</h2>
+      </div>
+    </div>
+
+    <div class="add-item">
+      <input id="add-item-text" type="text" placeholder="Your todo here" />
+      <button id="add-item-btn">Add Item</button>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -5,7 +5,8 @@ service cloud.firestore {
       allow read, write: if false;
     }
     match /todo-items/{item} {
-    	allow read, write: if true;
+    	allow read, update: if request.auth != null && request.auth.uid == resource.data.userID;
+    	allow create: if request.auth != null && request.resource.data.userID == request.auth.uid;
     }
   }
 }

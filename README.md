@@ -31,6 +31,7 @@
 Supplementary:
 
 - [Firebase Documentation](https://firebase.google.com/docs)
+- [Session 2 completed app](https://todo-demo-2f497.firebaseapp.com/)
 
 ## Contributors
 
